@@ -1,4 +1,5 @@
 using System.Linq;
+using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Todo.Data.Entities;
 using Todo.EntityModelMappers.TodoItems;
@@ -16,8 +17,7 @@ namespace Todo.Tests
         {
             var todoList = new TestTodoListBuilder(new IdentityUser("alice@example.com"), "shopping")
                     .WithItem("bread", Importance.High)
-                    .Build()
-                ;
+                    .Build();
 
             srcTodoItem = todoList.Items.First();
 
@@ -27,19 +27,19 @@ namespace Todo.Tests
         [Fact]
         public void EqualTodoListId()
         {
-            Assert.Equal(srcTodoItem.TodoListId, resultFields.TodoListId);
+            srcTodoItem.TodoListId.Should().Be(resultFields.TodoListId);
         }
 
         [Fact]
         public void EqualTitle()
         {
-            Assert.Equal(srcTodoItem.Title, resultFields.Title);
+            srcTodoItem.Title.Should().Be(resultFields.Title);
         }
 
         [Fact]
         public void EqualImportance()
         {
-            Assert.Equal(srcTodoItem.Importance, resultFields.Importance);
+            srcTodoItem.Importance.Should().Be(resultFields.Importance);
         }
     }
 }

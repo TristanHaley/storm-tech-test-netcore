@@ -16,13 +16,13 @@ namespace Todo.Models.TodoItems
 
         public TodoItemEditFields(int todoListId, string todoListTitle, int todoItemId, string title, bool isDone, string responsiblePartyId, Importance importance)
         {
-            TodoListId = todoListId;
-            TodoListTitle = todoListTitle;
-            TodoItemId = todoItemId;
-            Title = title;
-            IsDone = isDone;
+            TodoListId         = todoListId;
+            TodoListTitle      = todoListTitle;
+            TodoItemId         = todoItemId;
+            Title              = title;
+            IsDone             = isDone;
             ResponsiblePartyId = responsiblePartyId;
-            Importance = Importance.Medium;
+            Importance         = importance;
         }
     }
 }
