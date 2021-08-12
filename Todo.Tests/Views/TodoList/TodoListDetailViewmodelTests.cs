@@ -20,7 +20,7 @@ namespace Todo.Tests.Views.TodoList
             // Act
             Action act = () =>
             {
-                var _ = new TodoListDetailViewmodel(faker.Random.Int(), faker.Lorem.Sentence(), null);
+                var _ = new TodoListDetailViewmodel(faker.Random.Int(), faker.Lorem.Sentence(), null, true);
             };
 
             // Assert
@@ -45,7 +45,7 @@ namespace Todo.Tests.Views.TodoList
             var todoList = testTodoListBuilder.Build();
 
             // Act
-            var todoListDetailViewModel = TodoListDetailViewmodelFactory.Create(todoList);
+            var todoListDetailViewModel = TodoListDetailViewmodelFactory.Create(todoList, true);
 
             // Assert
             todoListDetailViewModel.Items.Should().BeInAscendingOrder(todoItem => todoItem.Importance);
