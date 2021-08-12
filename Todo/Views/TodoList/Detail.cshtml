@@ -1,5 +1,4 @@
-﻿@using Todo.Controllers
-@using Todo.Data.Entities
+﻿@using Todo.Data.Entities
 @using Todo.Services
 @model Todo.Models.TodoLists.TodoListDetailViewmodel
 
@@ -14,9 +13,16 @@
     <ul class="list-group">
 
         <li class="list-group-item">
-            <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
-                <strong>Add New Item</strong>
-            </a>
+            <div class="row">
+                <div class="col-xs-8">
+                    <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
+                        <strong>Add New Item</strong>
+                    </a>
+                </div>
+                <div class="col-xs-4 text-right">
+                    <a class="btn btn-info" asp-route-todoListId="@Model.TodoListId" asp-route-includeDone="@(!Model.IncludeDone)">@(Model.IncludeDone ? "Hide" : "Show") Done</a>
+                </div>
+            </div>
         </li>
 
         @foreach (var item in Model.Items)
