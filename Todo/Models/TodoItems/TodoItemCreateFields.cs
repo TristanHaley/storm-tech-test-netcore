@@ -1,4 +1,5 @@
 ﻿using System.ComponentModel;
+using System.ComponentModel.DataAnnotations;
 using Todo.Data.Entities;
 
 namespace Todo.Models.TodoItems
@@ -10,7 +11,9 @@ namespace Todo.Models.TodoItems
         public string TodoListTitle { get; set; }
         [DisplayName("Assignee")]
         public string ResponsiblePartyId { get; set; }
-        public Importance Importance { get; set; } = Importance.Medium;
+        public Importance Importance { get;     set; } = Importance.Medium;
+        [Range(1, 10)]
+        public int     Rank       { get;     set; }
 
         public TodoItemCreateFields() { }
 

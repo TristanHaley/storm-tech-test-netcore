@@ -1,5 +1,6 @@
 ﻿@using Todo.Data.Entities
 @using Todo.Services
+@using Todo.Views.TodoItem
 @model Todo.Models.TodoLists.TodoListDetailViewmodel
 
 @{
@@ -13,14 +14,51 @@
     <ul class="list-group">
 
         <li class="list-group-item">
-            <div class="row">
-                <div class="col-xs-8">
+            <div class="row form-group">
+                <div class="col-xs-12">
+                    <form asp-action="Detail" asp-controller="TodoList" method="get">
+                        @Html.HiddenFor(m=>m.TodoListId)
+                        
+                        <small>
+                            <div class="form-group">
+                                <label asp-for="SortProperty"></label>
+                                @Html.DropDownListFor(
+                                    m => m.SortProperty,
+                                    SelectListConvenience.TodoListSortPropertySelectListItems,
+                                    new
+                                    {
+                                        @class = "form-control form-control-sm"
+                                    })
+                            </div>
+
+                            <div class="form-group">
+                                <label asp-for="SortDirection"></label>
+                                @Html.DropDownListFor(
+                                    m => m.SortDirection,
+                                    SelectListConvenience.SortDirectionSelectListItems,
+                                    new
+                                    {
+                                        @class = "form-control form-control-sm"
+                                    })
+                            </div>
+                            
+                            <div class="form-group">
+                                <label asp-for="IncludeDone"></label>
+                                <input type="checkbox" asp-for="IncludeDone">
+                            </div>
+
+                            <div class="form-group">
+                                <button type="submit" class="btn btn-primary">Apply</button>
+                            </div>
+                        </small>
+                    </form>
+                </div>
+                
+                <div class="col-xs-12 text-left">
+                    <hr/>
                     <a asp-action="Create" asp-controller="TodoItem" asp-route-todoListId="@Model.TodoListId">
                         <strong>Add New Item</strong>
                     </a>
-                </div>
-                <div class="col-xs-4 text-right">
-                    <a class="btn btn-info" asp-route-todoListId="@Model.TodoListId" asp-route-includeDone="@(!Model.IncludeDone)">@(Model.IncludeDone ? "Hide" : "Show") Done</a>
                 </div>
             </div>
         </li>
@@ -45,7 +83,7 @@
                 
                 <div class="row">
 
-                <div class="col-md-8">
+                <div class="col-md-6">
                     <a asp-action="Edit" asp-controller="TodoItem" asp-route-todoItemId="@item.TodoItemId">
 
                         @if (item.IsDone)
@@ -57,6 +95,7 @@
                             <text>@item.Title</text>
                         }
                     </a>
+                    <p><span>Rank: </span>@item.Rank</p>
                 </div>
 
                 <div class="col-md-4 text-right">

@@ -1,10 +1,12 @@
 ﻿using System;
 using Bogus;
+using Bogus.Extensions;
 using FluentAssertions;
 using Microsoft.AspNetCore.Identity;
 using Todo.Data.Entities;
 using Todo.EntityModelMappers.TodoLists;
 using Todo.Models.TodoLists;
+using Todo.Tests.Builders;
 using Xunit;
 
 namespace Todo.Tests.Views.TodoList
@@ -27,22 +29,12 @@ namespace Todo.Tests.Views.TodoList
             act.Should().NotThrow<ArgumentNullException>();
         }
 
-        [Theory]
-        [InlineData(2)]
-        [InlineData(5)]
-        [InlineData(10)]
-        [InlineData(25)]
-        public void TodoListDetailViewmodel_ItemsNotNull_ViewModelCreatedWithSortedList(int todoItemCount)
+        [Fact]
+        public void TodoListDetailViewmodel_ItemsNotNull_ViewModelCreatedWithSortedList()
         {
             // Arrange
-            var faker               = new Faker();
-            var userIdentity        = new IdentityUser(faker.Person.Email);
-            var testTodoListBuilder = new TestTodoListBuilder(userIdentity, faker.Company.Bs());
-
-            for (var i = 0; i < todoItemCount; i++)
-                testTodoListBuilder = testTodoListBuilder.WithItem(faker.Lorem.Sentence(), faker.PickRandom<Importance>());
-
-            var todoList = testTodoListBuilder.Build();
+            var todoList = TodoFakerManager.GetTodoListFaker().Generate();
+            todoList.Items = TodoFakerManager.GetTodoItemFaker(todoList.Owner).GenerateBetween(2, 10);
 
             // Act
             var todoListDetailViewModel = TodoListDetailViewmodelFactory.Create(todoList, true);
