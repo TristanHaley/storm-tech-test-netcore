@@ -4,19 +4,21 @@ namespace Todo.Models.TodoItems
 {
     public class TodoItemSummaryViewmodel
     {
-        public int TodoItemId { get; }
-        public string Title { get; }
+        public int                  TodoItemId       { get; }
+        public string               Title            { get; }
         public UserSummaryViewmodel ResponsibleParty { get; }
-        public bool IsDone { get; }
-        public Importance Importance { get; }
+        public bool                 IsDone           { get; }
+        public Importance           Importance       { get; }
+        public int                  Rank             { get; }
 
-        public TodoItemSummaryViewmodel(int todoItemId, string title, bool isDone, UserSummaryViewmodel responsibleParty, Importance importance)
+        public TodoItemSummaryViewmodel(int todoItemId, string title, bool isDone, UserSummaryViewmodel responsibleParty, Importance importance, int rank)
         {
-            TodoItemId = todoItemId;
-            Title = title;
-            IsDone = isDone;
+            TodoItemId       = todoItemId;
+            Title            = title;
+            IsDone           = isDone;
             ResponsibleParty = responsibleParty;
-            Importance = importance;
+            Importance       = importance;
+            Rank             = rank;
         }
     }
 }

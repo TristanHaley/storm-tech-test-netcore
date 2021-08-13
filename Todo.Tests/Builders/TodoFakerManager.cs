@@ -11,7 +11,7 @@ namespace Todo.Tests.Builders
             responsibleParty ??= GenerateIdentityUser();
             
             return new Faker<TodoItem>()
-                  .CustomInstantiator(faker => new TodoItem(faker.Random.Int(), responsibleParty.Email, faker.Lorem.Sentence(), faker.PickRandom<Importance>()))
+                  .CustomInstantiator(faker => new TodoItem(faker.Random.Int(), responsibleParty.Email, faker.Lorem.Sentence(), faker.PickRandom<Importance>(), faker.Random.Int(0, 5)))
                   .RuleFor(todoItem => todoItem.ResponsibleParty, responsibleParty);
         }
 
